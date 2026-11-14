@@ -1,0 +1,6 @@
+{
+  "name": "Kodo Studio",
+  "description": "Multi-file code editor and live coding workspace for creating, editing, formatting, and previewing web and script projects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
