@@ -62,6 +62,7 @@ import { NewProjectModal } from './components/NewProjectModal';
 import { QuickSymbolBar } from './components/QuickSymbolBar';
 import { MobileToolsSheet } from './components/MobileToolsSheet';
 import { PWAInstallButton } from './components/PWAInstallButton';
+import { AICodeModal } from './components/AICodeModal';
 import { useOnlineStatus } from './hooks/usePWAInstall';
 
 const STORAGE_KEY_PROJECTS = 'kodo_studio_projects_v1';
@@ -161,6 +162,7 @@ export default function App() {
   const [isDraggingSplit, setIsDraggingSplit] = useState<boolean>(false);
 
   const [newProjectOpen, setNewProjectOpen] = useState<boolean>(false);
+  const [aiModalOpen, setAiModalOpen] = useState<boolean>(false);
   const [copiedFlag, setCopiedFlag] = useState<boolean>(false);
   const [savedFlash, setSavedFlash] = useState<boolean>(false);
 
@@ -635,6 +637,50 @@ export default function App() {
     e.target.value = '';
   };
 
+  const handleCreateOrUpdateFileWithAI = useCallback(
+    (rawPath: string, code: string) => {
+      const clean = rawPath.replace(/^\/+|\/+$/g, '') || 'generated.html';
+      updateActiveProject((proj) => {
+        const existing = proj.files.find(
+          (f) => f.path.toLowerCase() === clean.toLowerCase()
+        );
+        if (existing) {
+          return {
+            ...proj,
+            updatedAt: Date.now(),
+            activeFileId: existing.id,
+            openFileIds: proj.openFileIds.includes(existing.id)
+              ? proj.openFileIds
+              : [...proj.openFileIds, existing.id],
+            files: proj.files.map((f) =>
+              f.id === existing.id
+                ? { ...f, content: code, updatedAt: Date.now() }
+                : f
+            ),
+          };
+        }
+
+        const nf: CodeFile = {
+          id: createId(),
+          path: clean,
+          content: code,
+          updatedAt: Date.now(),
+        };
+        return {
+          ...proj,
+          updatedAt: Date.now(),
+          files: [...proj.files, nf],
+          activeFileId: nf.id,
+          openFileIds: [...proj.openFileIds, nf.id],
+        };
+      });
+      if (isMobile) {
+        setViewMode('code');
+      }
+    },
+    [isMobile, updateActiveProject]
+  );
+
   const activeLang = activeFile ? detectLanguageFromPath(activeFile.path) : 'plaintext';
   const effectiveViewMode: ViewMode =
     isMobile && viewMode === 'split' ? 'code' : viewMode;
@@ -949,6 +995,7 @@ export default function App() {
             onDuplicateFile={handleDuplicateFile}
             onDeleteFile={handleDeleteFile}
             onImportFiles={handleImportFiles}
+            onOpenAI={() => setAiModalOpen(true)}
           />
         )}
 
@@ -980,6 +1027,7 @@ export default function App() {
                 onDuplicateFile={handleDuplicateFile}
                 onDeleteFile={handleDeleteFile}
                 onImportFiles={handleImportFiles}
+                onOpenAI={() => setAiModalOpen(true)}
                 onCloseMobileDrawer={() => setSidebarOpen(false)}
               />
             </div>
@@ -1216,6 +1264,24 @@ export default function App() {
         locale={locale}
         onClose={() => setNewProjectOpen(false)}
         onCreate={handleCreateProject}
+      />
+
+      <AICodeModal
+        open={aiModalOpen}
+        t={t}
+        locale={locale}
+        activeFile={activeFile}
+        projectFiles={activeProject.files}
+        onClose={() => setAiModalOpen(false)}
+        onInsertAtCursor={(code) => {
+          editorRef.current?.insertText(code);
+          if (isMobile) setViewMode('code');
+        }}
+        onReplaceActiveFile={(code) => {
+          handleCodeChange(code);
+          if (isMobile) setViewMode('code');
+        }}
+        onCreateNewFile={handleCreateOrUpdateFileWithAI}
       />
       {!isOnline && (
         <div className="fixed bottom-12 left-3 z-50 rounded-lg border border-amber-500/40 bg-amber-500 px-3 py-1.5 text-xs font-medium text-white shadow-lg">

@@ -1,0 +1,6 @@
+{
+  "appId": "com.norhan.codingeditor",
+  "appName": "Coding Editor",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

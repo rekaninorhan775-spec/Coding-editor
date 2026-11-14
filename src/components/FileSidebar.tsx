@@ -10,6 +10,7 @@ import {
   Pencil,
   Plus,
   Search,
+  Sparkles,
   Trash2,
   Upload,
   X,
@@ -33,6 +34,7 @@ interface FileSidebarProps {
   onDuplicateFile: (fileId: string) => void;
   onDeleteFile: (fileId: string) => void;
   onImportFiles: (files: Array<{ path: string; content: string }>) => void;
+  onOpenAI: () => void;
   onCloseMobileDrawer?: () => void;
 }
 
@@ -110,6 +112,7 @@ export function FileSidebar({
   onDuplicateFile,
   onDeleteFile,
   onImportFiles,
+  onOpenAI,
   onCloseMobileDrawer,
 }: FileSidebarProps) {
   const [sidebarTab, setSidebarTab] = useState<'files' | 'search'>('files');
@@ -422,12 +425,12 @@ export function FileSidebar({
         </select>
       </div>
 
-      {/* Mode Switcher: Explorer / Search */}
+      {/* Mode Switcher: Explorer / Search / AI */}
       <div className="flex items-center gap-1 border-b border-slate-200 px-3 py-2 dark:border-[#262C36]">
         <button
           type="button"
           onClick={() => setSidebarTab('files')}
-          className={`flex-1 rounded-md px-2.5 py-1 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
+          className={`flex-1 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 md:py-1 ${
             sidebarTab === 'files'
               ? 'bg-white text-slate-900 shadow-xs dark:bg-[#1C2128] dark:text-white'
               : 'text-slate-600 hover:text-slate-900 dark:text-[#8B949E] dark:hover:text-white'
@@ -438,13 +441,24 @@ export function FileSidebar({
         <button
           type="button"
           onClick={() => setSidebarTab('search')}
-          className={`flex-1 rounded-md px-2.5 py-1 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
+          className={`flex-1 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 md:py-1 ${
             sidebarTab === 'search'
               ? 'bg-white text-slate-900 shadow-xs dark:bg-[#1C2128] dark:text-white'
               : 'text-slate-600 hover:text-slate-900 dark:text-[#8B949E] dark:hover:text-white'
           }`}
         >
           {t.search}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            onCloseMobileDrawer?.();
+            onOpenAI();
+          }}
+          className="inline-flex items-center justify-center gap-1 rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-blue-500 whitespace-nowrap shrink-0 md:py-1"
+        >
+          <Sparkles className="h-3.5 w-3.5" />
+          <span>{t.aiButton}</span>
         </button>
       </div>
 

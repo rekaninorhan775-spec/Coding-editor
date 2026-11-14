@@ -69,7 +69,29 @@ export interface Translations {
   iosInstallTitle: string;
   iosInstallStep1: string;
   iosInstallStep2: string;
+  androidInstallTitle: string;
+  androidInstallStep1: string;
+  androidInstallStep2: string;
+  androidInstallStep3: string;
+  installNote: string;
+  copyAppLink: string;
   offlineMode: string;
+  aiButton: string;
+  aiTitle: string;
+  aiSubtitle: string;
+  aiPromptPlaceholder: string;
+  aiIncludeContext: string;
+  aiGenerate: string;
+  aiGenerating: string;
+  aiSuggestedFile: string;
+  aiCreateNewFile: string;
+  aiReplaceFile: string;
+  aiInsertCursor: string;
+  aiQuickHtmlCard: string;
+  aiQuickCalculator: string;
+  aiQuickTodo: string;
+  aiQuickPython: string;
+  aiErrorGeneric: string;
 }
 
 export const TRANSLATIONS: Record<UiLocale, Translations> = {
@@ -139,10 +161,32 @@ export const TRANSLATIONS: Record<UiLocale, Translations> = {
     clearCode: 'Clear Code',
     installApp: 'Install App',
     installOnIOS: 'Install App',
-    iosInstallTitle: 'Install Coding Editor',
-    iosInstallStep1: 'Tap the Share button in Safari.',
-    iosInstallStep2: 'Scroll down and tap Add to Home Screen.',
+    iosInstallTitle: 'Install on iOS (iPhone / iPad)',
+    iosInstallStep1: 'Open the app link in Safari (outside Preview).',
+    iosInstallStep2: 'Tap Share, then select Add to Home Screen.',
+    androidInstallTitle: 'Install on Android',
+    androidInstallStep1: 'Open the app link in Google Chrome.',
+    androidInstallStep2: 'Tap the ⋮ menu at the top right.',
+    androidInstallStep3: 'Tap Install app or Add to Home screen.',
+    installNote: 'Installs Coding Editor directly on your phone with its coding icon and offline support.',
+    copyAppLink: 'Copy App Link',
     offlineMode: 'Offline Mode — Changes saved locally.',
+    aiButton: 'AI',
+    aiTitle: 'AI Code Generator',
+    aiSubtitle: 'Describe the code or feature you want, and AI will write it for you.',
+    aiPromptPlaceholder: 'Example: Build a responsive login form with dark mode and validation...',
+    aiIncludeContext: 'Include active file context',
+    aiGenerate: 'Generate Code',
+    aiGenerating: 'Writing code...',
+    aiSuggestedFile: 'File',
+    aiCreateNewFile: 'Create New File',
+    aiReplaceFile: 'Replace Active File',
+    aiInsertCursor: 'Insert at Cursor',
+    aiQuickHtmlCard: 'Profile Card (HTML/CSS)',
+    aiQuickCalculator: 'Calculator App (JS)',
+    aiQuickTodo: 'To-Do List',
+    aiQuickPython: 'Python Helper',
+    aiErrorGeneric: 'Could not generate code. Please try again.',
   },
   ku: {
     appName: 'Coding Editor',
@@ -210,9 +254,31 @@ export const TRANSLATIONS: Record<UiLocale, Translations> = {
     clearCode: 'سڕینەوەی کۆد',
     installApp: 'دابەزاندنی ئەپ',
     installOnIOS: 'دابەزاندنی ئەپ',
-    iosInstallTitle: 'دابەزاندنی Coding Editor',
-    iosInstallStep1: 'پەنجە بنێ بە دوگمەی Share لە Safari.',
-    iosInstallStep2: 'هەڵبژێرە Add to Home Screen.',
+    iosInstallTitle: 'بۆ iOS (ئایفۆن / ئایپاد)',
+    iosInstallStep1: 'لینکەکە لە وێبگەڕی Safari بکەرەوە.',
+    iosInstallStep2: 'پەنجە بنێ بە Share پاشان Add to Home Screen هەڵبژێرە.',
+    androidInstallTitle: 'بۆ Android',
+    androidInstallStep1: 'لینکەکە لە وێبگەڕی Chrome بکەرەوە.',
+    androidInstallStep2: 'پەنجە بنێ بە مێنۆی ⋮ لە سەرەوەی لای ڕاست.',
+    androidInstallStep3: 'هەڵبژێرە Install app یان Add to Home screen.',
+    installNote: 'ئەپی Coding Editor ڕاستەوخۆ بە ئایکۆنی کۆدکردن لەسەر مۆبایلەکەت دادەنرێت و بێ ئینتەرنێتیش کار دەکات.',
+    copyAppLink: 'کۆپیکردنی لینکی ئەپ',
     offlineMode: 'بێ ئینتەرنێت — گۆڕانکارییەکان لەسەر ئامێرەکە پاشەکەوت دەبن.',
+    aiButton: 'AI',
+    aiTitle: 'ئێ ئای کۆد نڤیسین',
+    aiSubtitle: 'داخوازا کۆدێ خۆ بنڤیسە، و AI دێ بۆ تە ئامادە کەت.',
+    aiPromptPlaceholder: 'نموونە: بۆ من لاپەڕێ HTML و CSS یێ ژمێریارەکێ جوان دروست بکە...',
+    aiIncludeContext: 'فایلا نوکە وەک زانیاری بهێتە هنارتن',
+    aiGenerate: 'چێکرنا کۆدی',
+    aiGenerating: 'کۆد دهێتە نڤیسین...',
+    aiSuggestedFile: 'فایل',
+    aiCreateNewFile: 'دروستکرن وەک فایلا نوێ',
+    aiReplaceFile: 'گۆهۆڕینا فایلا نوکە',
+    aiInsertCursor: 'زێدەکرن د ناڤ فایلدە',
+    aiQuickHtmlCard: 'کارتێ پرۆفایلی (HTML)',
+    aiQuickCalculator: 'ژمێریار (Calculator)',
+    aiQuickTodo: 'لیستا کاران (To-Do)',
+    aiQuickPython: 'کۆدێ Python',
+    aiErrorGeneric: 'ئاریشەیەک چێبوو د دروستکرنا کۆدیدا. دووبارە تاقی بکە.',
   },
 };
